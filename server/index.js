@@ -1,6 +1,11 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const StudentController = require("./controller/StudentController");
 const PORT = 5000;
+
+mongoose.connect(
+  "mongodb+srv://Gaurav:2004@cluster20.bwhml.mongodb.net/?appName=Cluster20/StudentDB",
+);
 
 const app = express();
 app.use(express.json());

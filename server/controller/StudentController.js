@@ -1,10 +1,16 @@
+const StudentModel = require("../models/StudentModel");
+
 const StudentController = {
   create(req, res) {
+    const body = req.body;
+    StudentModel.create(body);
     res.send({
       message: "Succces! New Record Created",
+      reqBody: body,
     });
   },
-  readAll(req, res) {
+  async readAll(req, res) {
+    const students = await StudentModel.find();
     res.send({
       message: "Succes! 46 record found",
     });
@@ -15,6 +21,8 @@ const StudentController = {
     });
   },
   update(req, res) {
+    const params = req.params;
+    const body = req.body;
     res.send({
       message: "Succces! Record has been updated",
     });
