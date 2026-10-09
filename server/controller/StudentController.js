@@ -1,36 +1,73 @@
 const StudentModel = require("../models/StudentModel");
 
 const StudentController = {
-  create(req, res) {
-    const body = req.body;
-    StudentModel.create(body);
-    res.send({
-      message: "Succces! New Record Created",
-      reqBody: body,
-    });
+  async create(req, res) {
+    try {
+      const student = await StudentModel.create(req.body);
+      res.status(201).send({
+        message: "Student created",
+        data: student,
+      });
+    } catch (error) {
+      sendError(res, "create student", error);
+    }
   },
   async readAll(req, res) {
-    const students = await StudentModel.find();
-    res.send({
-      message: "Succes! 46 record found",
-    });
+    try {
+      const student = await StudentModel.find();
+      res.send({
+        message: "All Student Records",
+        data: student,
+      });
+    } catch (error) {
+      sendError(res, "read students", error);
+    }
   },
-  readOne(req, res) {
-    res.send({
-      message: "Succces! studend details found",
-    });
+  async readOne(req, res) {
+    try {
+      const student = await StudentModel.findById(req.params.id);
+      if (!student) {
+        return res.status(404).send({ message: "Student not found" });
+      }
+      res.send({
+        message: "Student found",
+        data: student,
+      });
+    } catch (error) {
+      sendError(res, "read student", error);
+    }
   },
-  update(req, res) {
-    const params = req.params;
-    const body = req.body;
-    res.send({
-      message: "Succces! Record has been updated",
-    });
+  async update(req, res) {
+    try {
+      const student = await StudentModel.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true, runValidators: true },
+      );
+      if (!student) {
+        return res.status(404).send({ message: "Student not found" });
+      }
+      res.send({
+        message: "Student updated",
+        data: student,
+      });
+    } catch (error) {
+      sendError(res, "update student", error);
+    }
   },
-  destroy(req, res) {
-    res.send({
-      message: "Succces! Record deleted",
-    });
+  async destroy(req, res) {
+    try {
+      const student = await StudentModel.findByIdAndDelete(req.params.id);
+      if (!student) {
+        return res.status(404).send({ message: "Student not found" });
+      }
+      res.send({
+        message: "Student deleted",
+        data: student,
+      });
+    } catch (error) {
+      sendError(res, "delete student", error);
+    }
   },
 };
 
