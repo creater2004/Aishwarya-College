@@ -1,5 +1,6 @@
 const TeacherModel = require("../models/TeacherModel");
 const TeacherController = {
+  //create API
   async create(req, res) {
     try {
       const Teacher = await TeacherModel.create(req.body);
@@ -11,6 +12,8 @@ const TeacherController = {
       sendError(res, "create Teacher", error);
     }
   },
+
+  //API FOR ALL DATA
   async readAll(req, res) {
     try {
       const Teacher = await TeacherModel.find();
@@ -22,6 +25,8 @@ const TeacherController = {
       sendError(res, "read Teachers", error);
     }
   },
+
+  //API FOR INDIVIDUAL TEACHER INFORMATION
   async readOne(req, res) {
     try {
       const Teacher = await TeacherModel.findById(req.params.id);
@@ -36,6 +41,8 @@ const TeacherController = {
       sendError(res, "read Teacher", error);
     }
   },
+
+  //UPDATE METHOD
   async update(req, res) {
     try {
       const Teacher = await TeacherModel.findByIdAndUpdate(
@@ -54,6 +61,8 @@ const TeacherController = {
       sendError(res, "update Teacher", error);
     }
   },
+
+  //DELETE METHOD
   async destroy(req, res) {
     try {
       const Teacher = await TeacherModel.findByIdAndDelete(req.params.id);
