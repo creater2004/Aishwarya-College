@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const StudentController = require("./controller/StudentController");
+const TeacherController = require("./controller/TeacherController");
 const PORT = 5000;
 
 mongoose
@@ -17,12 +18,18 @@ mongoose
 const app = express();
 app.use(express.json());
 
-app.listen(PORT, (req, res) => {
-  console.log(`server is started on http://localhost:${PORT}`);
-});
-
 app.post("/student", StudentController.create);
 app.get("/student", StudentController.readAll);
 app.get("/student/:id", StudentController.readOne);
 app.put("/student/:id", StudentController.update);
 app.delete("/student/:id", StudentController.destroy);
+
+app.post("/teacher", TeacherController.create);
+app.get("/teacher", TeacherController.readAll);
+app.get("/teacher/:id", TeacherController.readOne);
+app.put("/teacher/:id", TeacherController.update);
+app.delete("/teacher/:id", TeacherController.destroy);
+
+app.listen(PORT, (req, res) => {
+  console.log(`server is started on http://localhost:${PORT}`);
+});
