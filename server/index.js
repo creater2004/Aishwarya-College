@@ -2,7 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const StudentController = require("./controller/StudentController");
 const TeacherController = require("./controller/TeacherController");
-const PORT = 5000;
+const AuthController = require("./controller/authcontroller");
+const { authMiddleware } = require("./middleware/authMiddleware");
+const { PORT } = require("./utils/constants.utils");
+// const PORT = 5000;
 
 mongoose
   .connect(
@@ -29,6 +32,9 @@ app.get("/teacher", TeacherController.readAll);
 app.get("/teacher/:id", TeacherController.readOne);
 app.put("/teacher/:id", TeacherController.update);
 app.delete("/teacher/:id", TeacherController.destroy);
+
+app.post("/register", AuthController.register);
+app.post("/login", AuthController.login);
 
 app.listen(PORT, (req, res) => {
   console.log(`server is started on http://localhost:${PORT}`);
