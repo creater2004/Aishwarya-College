@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router";
+import "../App.css";
 
 function AppLayout() {
   const [isAppReady, updateAppStatus] = React.useState(false);
@@ -13,14 +14,23 @@ function AppLayout() {
   }
   return (
     <div>
-      <header>HEADER</header>
+      <header>
+        <marquee behavior="alternate" direction="right">
+          Welcome To College Portal,For More Inforamtion Login With Your
+          Credential's 🙏
+        </marquee>
+      </header>
       <nav>
         <ul>
           <li>
-            <NavLink to={"/"}>Dashboard</NavLink>
+            <NavLink className="NavLink" to={"/"}>
+              Dashboard
+            </NavLink>
           </li>
           <li>
-            <NavLink to={"/student"}>Student</NavLink>
+            <NavLink className="NavLink" to={"/student"}>
+              Student
+            </NavLink>
           </li>
           <li>Teacher</li>
           <li>Staff</li>
